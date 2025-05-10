@@ -27,7 +27,7 @@ public class MyShopActivity extends AppCompatActivity {
         binding.cardMyFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MyShopActivity.this,MyFoodActivity.class);
+                Intent intent=new Intent(MyShopActivity.this, MyProductActivity.class);
                 intent.putExtra("userId",userId);
                 startActivity(intent);
             }

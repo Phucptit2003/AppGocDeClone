@@ -115,12 +115,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
         setEventNavigationBottom();
         setCartNavigation();
-        ///////////////
-
-
-
-
-        ////////////////////////
         binding.navigationLeft.setNavigationItemSelectedListener(this);
     }
 
@@ -194,7 +188,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             return true;
         });
 
-        // Mặc định chọn Home
         bottomNavigation.setSelectedItemId(R.id.home_menu);
     }
 
@@ -258,7 +251,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadInformationForNavigationBar() {
-        // Load số lượng thông báo chưa đọc
         new FirebaseNotificationHelper(this).readNotification(userId, new FirebaseNotificationHelper.DataStatus() {
             @Override
             public void DataIsLoaded(List<Notification> notificationList, List<Notification> notificationListToNotify) {
@@ -268,8 +260,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         count++;
                     }
                 }
-
-                // Hiển thị badge trên icon notification
                 BottomNavigationView bottomNavigation = binding.bottomNavigation;
                 if (count > 0) {
                     bottomNavigation.getOrCreateBadge(R.id.notification_menu).setNumber(count);
@@ -296,7 +286,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        // Load thông tin người dùng
         new FirebaseUserInfoHelper(this).readUserInfo(userId, new FirebaseUserInfoHelper.DataStatus() {
             @Override
             public void DataIsLoaded(User user) {
@@ -328,6 +317,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void makeNotification(Notification notification) {
-        // Code tạo thông báo (giữ nguyên như cũ)
     }
 }

@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MyFoodActivity extends AppCompatActivity {
+public class MyProductActivity extends AppCompatActivity {
     private ActivityMyFoodBinding binding;
     private ArrayList<Product> ds=new ArrayList<>();
     private MyShopAdapter adapter;
@@ -36,7 +36,7 @@ public class MyFoodActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(Color.parseColor("#E8584D"));
 
         userId = getIntent().getStringExtra("userId");
-        adapter=new MyShopAdapter(ds,MyFoodActivity.this, userId);
+        adapter=new MyShopAdapter(ds, MyProductActivity.this, userId);
         binding.recycleView.setHasFixedSize(true);
         binding.recycleView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
         binding.recycleView.setAdapter(adapter);
@@ -49,7 +49,7 @@ public class MyFoodActivity extends AppCompatActivity {
         binding.flpAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MyFoodActivity.this,AddFoodActivity.class);
+                Intent intent=new Intent(MyProductActivity.this,AddFoodActivity.class);
                 intent.putExtra("userId",userId);
                 startActivity(intent);
             }
