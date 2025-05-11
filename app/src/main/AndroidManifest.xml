@@ -36,7 +36,7 @@
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
-            android:name="com.example.app.Activities.MyShop.AddFoodActivity"
+            android:name="com.example.app.Activities.MyShop.AddProductActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity

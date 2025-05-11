@@ -55,7 +55,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-public class AddFoodActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
     private ActivityAddFoodBinding binding;
     private int position;
     private int PERMISSION_REQUEST_CODE = 10001;
@@ -158,7 +158,7 @@ public class AddFoodActivity extends AppCompatActivity {
         });
         binding.lnAddFood.btnAddProduct.setOnClickListener(view -> {
             if (checkLoi()) {
-                uploadDialog = new UploadDialog(AddFoodActivity.this);
+                uploadDialog = new UploadDialog(AddProductActivity.this);
                 uploadDialog.show();
                 uploadImage(FIRST_IMAGE);
             }
@@ -185,7 +185,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if (position == FOURTH_IMAGE) {
                                 uploadDialog.dismiss();
-                                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                 finish();
                             } else {
                                 deleteOldImage(position + 1);
@@ -195,7 +195,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if (position == FOURTH_IMAGE) {
                                 uploadDialog.dismiss();
-                                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                 finish();
                             } else {
                                 deleteOldImage(position + 1);
@@ -211,7 +211,7 @@ public class AddFoodActivity extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 if (position == FOURTH_IMAGE) {
                                     uploadDialog.dismiss();
-                                    new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                    new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                     finish();
                                 } else {
                                     deleteOldImage(position + 1);
@@ -222,7 +222,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if (position == FOURTH_IMAGE) {
                                 uploadDialog.dismiss();
-                                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                 finish();
                             } else {
                                 deleteOldImage(position + 1);
@@ -236,7 +236,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     deleteOldImage(position + 1);
                 } else {
                     uploadDialog.dismiss();
-                    new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                    new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                     finish();
                 }
             }
@@ -245,7 +245,7 @@ public class AddFoodActivity extends AppCompatActivity {
                 deleteOldImage(position + 1);
             } else {
                 uploadDialog.dismiss();
-                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                 finish();
             }
         }
@@ -301,13 +301,13 @@ public class AddFoodActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        new FailToast(AddFoodActivity.this, "Permission denied!").showToast();
+                        new FailToast(AddProductActivity.this, "Permission denied!").showToast();
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
                         permissionToken.continuePermissionRequest();
-                        new FailToast(AddFoodActivity.this, "Permission denied!").showToast();
+                        new FailToast(AddProductActivity.this, "Permission denied!").showToast();
                     }
                 }).check();
     }
@@ -356,7 +356,7 @@ public class AddFoodActivity extends AppCompatActivity {
     }
 
     public AlertDialog.Builder createDialog(String content) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddFoodActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
         builder.setTitle("Thông báo");
         builder.setMessage(content);
         builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
@@ -375,7 +375,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         deleteOldImage(FIRST_IMAGE);
                     } else {
                         uploadDialog.dismiss();
-                        new FailToast(AddFoodActivity.this, "Some errors occurred!").showToast();
+                        new FailToast(AddProductActivity.this, "Some errors occurred!").showToast();
                         finish();
                     }
                 }
@@ -389,10 +389,10 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         uploadDialog.dismiss();
                         finish();
-                        new SuccessfulToast(AddFoodActivity.this, "Add product successfully!").showToast();
+                        new SuccessfulToast(AddProductActivity.this, "Add product successfully!").showToast();
                     } else {
                         uploadDialog.dismiss();
-                        new FailToast(AddFoodActivity.this, "Some error occurred!").showToast();
+                        new FailToast(AddProductActivity.this, "Some error occurred!").showToast();
                     }
                 }
             });
@@ -417,7 +417,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (!isNetworkAvailable()) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "No internet connection").showToast();
+                            new FailToast(AddProductActivity.this, "No internet connection").showToast();
                         });
                         return;
                     }
@@ -426,7 +426,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (file == null) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Error accessing image file").showToast();
+                            new FailToast(AddProductActivity.this, "Error accessing image file").showToast();
                         });
                         return;
                     }
@@ -434,7 +434,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (file.length() > 10 * 1024 * 1024) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Image size exceeds 10MB").showToast();
+                            new FailToast(AddProductActivity.this, "Image size exceeds 10MB").showToast();
                         });
                         return;
                     }
@@ -442,7 +442,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Unsupported image format").showToast();
+                            new FailToast(AddProductActivity.this, "Unsupported image format").showToast();
                         });
                         return;
                     }
@@ -466,14 +466,14 @@ public class AddFoodActivity extends AppCompatActivity {
                         long resetSeconds = resetTime != null ? Long.parseLong(resetTime) - System.currentTimeMillis() / 1000 : 3600;
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Rate limit exceeded. Please try again after " + resetSeconds + " seconds").showToast();
+                            new FailToast(AddProductActivity.this, "Rate limit exceeded. Please try again after " + resetSeconds + " seconds").showToast();
                         });
                         return;
                     }
                     if (!response.isSuccessful()) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Imgur upload failed: " + response.code()).showToast();
+                            new FailToast(AddProductActivity.this, "Imgur upload failed: " + response.code()).showToast();
                         });
                         return;
                     }
@@ -484,7 +484,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
                             try {
-                                new FailToast(AddFoodActivity.this, "Imgur error: " + json.getString("status")).showToast();
+                                new FailToast(AddProductActivity.this, "Imgur error: " + json.getString("status")).showToast();
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
@@ -521,7 +521,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     Log.e("UploadImage", "Error uploading image", e);
                     runOnUiThread(() -> {
                         uploadDialog.dismiss();
-                        new FailToast(AddFoodActivity.this, "Error uploading image: " + e.getMessage()).showToast();
+                        new FailToast(AddProductActivity.this, "Error uploading image: " + e.getMessage()).showToast();
                     });
                 }
             }).start();
