@@ -72,7 +72,7 @@
                         app:layout_constraintStart_toStartOf="parent">
 
                         <RadioButton
-                            android:id="@+id/rbFood"
+                            android:id="@+id/rbProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="50dp"

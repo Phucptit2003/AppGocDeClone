@@ -46,7 +46,7 @@
         android:background="@color/white"
         android:weightSum="3">
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardMyFood"
+            android:id="@+id/cardMyProduct"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="20dp"

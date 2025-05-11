@@ -28,7 +28,7 @@ import com.example.app.CustomMessageBox.SuccessfulToast;
 import com.example.app.Dialog.UploadDialog;
 import com.example.app.Model.Product;
 import com.example.app.R;
-import com.example.app.databinding.ActivityAddFoodBinding;
+import com.example.app.databinding.ActivityAddProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,8 +55,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-public class AddFoodActivity extends AppCompatActivity {
-    private ActivityAddFoodBinding binding;
+public class AddProductActivity extends AppCompatActivity {
+    private ActivityAddProductBinding binding;
     private int position;
     private int PERMISSION_REQUEST_CODE = 10001;
     private UploadDialog uploadDialog;
@@ -78,7 +78,7 @@ public class AddFoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddFoodBinding.inflate(getLayoutInflater());
+        binding = ActivityAddProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         getWindow().setStatusBarColor(Color.parseColor("#E8584D"));
@@ -90,15 +90,15 @@ public class AddFoodActivity extends AppCompatActivity {
         if (intentUpdate != null && intentUpdate.hasExtra("Product updating")) {
             productUpdate = (Product) intentUpdate.getSerializableExtra("Product updating");
             checkUpdate = true;
-            binding.lnAddFood.btnAddProduct.setText("Update");
-            binding.lnAddFood.edtNameOfProduct.setText(productUpdate.getProductName());
-            binding.lnAddFood.edtAmount.setText(productUpdate.getRemainAmount() + "");
-            binding.lnAddFood.edtDescp.setText(productUpdate.getDescription());
-            binding.lnAddFood.edtPrice.setText(productUpdate.getProductPrice() + "");
+            binding.lnAddProduct.btnAddProduct.setText("Update");
+            binding.lnAddProduct.edtNameOfProduct.setText(productUpdate.getProductName());
+            binding.lnAddProduct.edtAmount.setText(productUpdate.getRemainAmount() + "");
+            binding.lnAddProduct.edtDescp.setText(productUpdate.getDescription());
+            binding.lnAddProduct.edtPrice.setText(productUpdate.getProductPrice() + "");
             if (productUpdate.getProductType().equals("Balo")) {
-                binding.lnAddFood.rbDrink.setChecked(true);
+                binding.lnAddProduct.rbDrink.setChecked(true);
             } else {
-                binding.lnAddFood.rbFood.setChecked(true);
+                binding.lnAddProduct.rbProduct.setChecked(true);
             }
             imgOld1 = productUpdate.getProductImage1();
             imgOld2 = productUpdate.getProductImage2();
@@ -156,9 +156,9 @@ public class AddFoodActivity extends AppCompatActivity {
             position = 4;
             checkRuntimePermission();
         });
-        binding.lnAddFood.btnAddProduct.setOnClickListener(view -> {
+        binding.lnAddProduct.btnAddProduct.setOnClickListener(view -> {
             if (checkLoi()) {
-                uploadDialog = new UploadDialog(AddFoodActivity.this);
+                uploadDialog = new UploadDialog(AddProductActivity.this);
                 uploadDialog.show();
                 uploadImage(FIRST_IMAGE);
             }
@@ -185,7 +185,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if (position == FOURTH_IMAGE) {
                                 uploadDialog.dismiss();
-                                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                 finish();
                             } else {
                                 deleteOldImage(position + 1);
@@ -195,7 +195,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if (position == FOURTH_IMAGE) {
                                 uploadDialog.dismiss();
-                                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                 finish();
                             } else {
                                 deleteOldImage(position + 1);
@@ -211,7 +211,7 @@ public class AddFoodActivity extends AppCompatActivity {
                             runOnUiThread(() -> {
                                 if (position == FOURTH_IMAGE) {
                                     uploadDialog.dismiss();
-                                    new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                    new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                     finish();
                                 } else {
                                     deleteOldImage(position + 1);
@@ -222,7 +222,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if (position == FOURTH_IMAGE) {
                                 uploadDialog.dismiss();
-                                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                                 finish();
                             } else {
                                 deleteOldImage(position + 1);
@@ -236,7 +236,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     deleteOldImage(position + 1);
                 } else {
                     uploadDialog.dismiss();
-                    new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                    new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                     finish();
                 }
             }
@@ -245,7 +245,7 @@ public class AddFoodActivity extends AppCompatActivity {
                 deleteOldImage(position + 1);
             } else {
                 uploadDialog.dismiss();
-                new SuccessfulToast(AddFoodActivity.this, "Update successfully!").showToast();
+                new SuccessfulToast(AddProductActivity.this, "Update successfully!").showToast();
                 finish();
             }
         }
@@ -301,23 +301,23 @@ public class AddFoodActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        new FailToast(AddFoodActivity.this, "Permission denied!").showToast();
+                        new FailToast(AddProductActivity.this, "Permission denied!").showToast();
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
                         permissionToken.continuePermissionRequest();
-                        new FailToast(AddFoodActivity.this, "Permission denied!").showToast();
+                        new FailToast(AddProductActivity.this, "Permission denied!").showToast();
                     }
                 }).check();
     }
 
     public boolean checkLoi() {
         try {
-            String name = binding.lnAddFood.edtNameOfProduct.getText().toString();
-            double price = Double.parseDouble(binding.lnAddFood.edtPrice.getText().toString() + ".0");
-            int amount = Integer.parseInt(binding.lnAddFood.edtAmount.getText().toString());
-            String description = binding.lnAddFood.edtDescp.getText().toString();
+            String name = binding.lnAddProduct.edtNameOfProduct.getText().toString();
+            double price = Double.parseDouble(binding.lnAddProduct.edtPrice.getText().toString() + ".0");
+            int amount = Integer.parseInt(binding.lnAddProduct.edtAmount.getText().toString());
+            String description = binding.lnAddProduct.edtDescp.getText().toString();
             if (!checkUpdate) {
                 if (img1.isEmpty()) { // Chỉ yêu cầu ít nhất 1 ảnh
                     createDialog("Vui lòng chọn ít nhất 1 hình").create().show();
@@ -356,12 +356,12 @@ public class AddFoodActivity extends AppCompatActivity {
     }
 
     public AlertDialog.Builder createDialog(String content) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(AddFoodActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
         builder.setTitle("Thông báo");
         builder.setMessage(content);
         builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
         builder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel());
-        builder.setIcon(R.drawable.icon_dialog_alert_addfood);
+        builder.setIcon(R.drawable.icon_dialog_alert_addproduct);
         return builder;
     }
 
@@ -375,7 +375,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         deleteOldImage(FIRST_IMAGE);
                     } else {
                         uploadDialog.dismiss();
-                        new FailToast(AddFoodActivity.this, "Some errors occurred!").showToast();
+                        new FailToast(AddProductActivity.this, "Some errors occurred!").showToast();
                         finish();
                     }
                 }
@@ -389,10 +389,10 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         uploadDialog.dismiss();
                         finish();
-                        new SuccessfulToast(AddFoodActivity.this, "Add product successfully!").showToast();
+                        new SuccessfulToast(AddProductActivity.this, "Add product successfully!").showToast();
                     } else {
                         uploadDialog.dismiss();
-                        new FailToast(AddFoodActivity.this, "Some error occurred!").showToast();
+                        new FailToast(AddProductActivity.this, "Some error occurred!").showToast();
                     }
                 }
             });
@@ -417,7 +417,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (!isNetworkAvailable()) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "No internet connection").showToast();
+                            new FailToast(AddProductActivity.this, "No internet connection").showToast();
                         });
                         return;
                     }
@@ -426,7 +426,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (file == null) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Error accessing image file").showToast();
+                            new FailToast(AddProductActivity.this, "Error accessing image file").showToast();
                         });
                         return;
                     }
@@ -434,7 +434,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (file.length() > 10 * 1024 * 1024) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Image size exceeds 10MB").showToast();
+                            new FailToast(AddProductActivity.this, "Image size exceeds 10MB").showToast();
                         });
                         return;
                     }
@@ -442,7 +442,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg") && !fileName.endsWith(".png")) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Unsupported image format").showToast();
+                            new FailToast(AddProductActivity.this, "Unsupported image format").showToast();
                         });
                         return;
                     }
@@ -466,14 +466,14 @@ public class AddFoodActivity extends AppCompatActivity {
                         long resetSeconds = resetTime != null ? Long.parseLong(resetTime) - System.currentTimeMillis() / 1000 : 3600;
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Rate limit exceeded. Please try again after " + resetSeconds + " seconds").showToast();
+                            new FailToast(AddProductActivity.this, "Rate limit exceeded. Please try again after " + resetSeconds + " seconds").showToast();
                         });
                         return;
                     }
                     if (!response.isSuccessful()) {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
-                            new FailToast(AddFoodActivity.this, "Imgur upload failed: " + response.code()).showToast();
+                            new FailToast(AddProductActivity.this, "Imgur upload failed: " + response.code()).showToast();
                         });
                         return;
                     }
@@ -484,7 +484,7 @@ public class AddFoodActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             uploadDialog.dismiss();
                             try {
-                                new FailToast(AddFoodActivity.this, "Imgur error: " + json.getString("status")).showToast();
+                                new FailToast(AddProductActivity.this, "Imgur error: " + json.getString("status")).showToast();
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
@@ -499,12 +499,12 @@ public class AddFoodActivity extends AppCompatActivity {
                         saveDeleteHash(position, deleteHash);
                         if (position == FOURTH_IMAGE) {
                             img4 = imageUrl;
-                            String name = binding.lnAddFood.edtNameOfProduct.getText().toString();
-                            String price = binding.lnAddFood.edtPrice.getText().toString();
-                            String amount = binding.lnAddFood.edtAmount.getText().toString();
-                            String description = binding.lnAddFood.edtDescp.getText().toString();
+                            String name = binding.lnAddProduct.edtNameOfProduct.getText().toString();
+                            String price = binding.lnAddProduct.edtPrice.getText().toString();
+                            String amount = binding.lnAddProduct.edtAmount.getText().toString();
+                            String description = binding.lnAddProduct.edtDescp.getText().toString();
                             Product tmp = new Product("null", name, img1, img2, img3, img4, Integer.valueOf(price),
-                                    binding.lnAddFood.rbFood.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
+                                    binding.lnAddProduct.rbProduct.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
                             uploadProduct(tmp);
                         } else {
                             if (position == FIRST_IMAGE) {
@@ -521,7 +521,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     Log.e("UploadImage", "Error uploading image", e);
                     runOnUiThread(() -> {
                         uploadDialog.dismiss();
-                        new FailToast(AddFoodActivity.this, "Error uploading image: " + e.getMessage()).showToast();
+                        new FailToast(AddProductActivity.this, "Error uploading image: " + e.getMessage()).showToast();
                     });
                 }
             }).start();
@@ -533,12 +533,12 @@ public class AddFoodActivity extends AppCompatActivity {
                 uploadImage(position + 1);
             } else {
                 img4 = imgOld4;
-                String name = binding.lnAddFood.edtNameOfProduct.getText().toString();
-                String price = binding.lnAddFood.edtPrice.getText().toString();
-                String amount = binding.lnAddFood.edtAmount.getText().toString();
-                String description = binding.lnAddFood.edtDescp.getText().toString();
+                String name = binding.lnAddProduct.edtNameOfProduct.getText().toString();
+                String price = binding.lnAddProduct.edtPrice.getText().toString();
+                String amount = binding.lnAddProduct.edtAmount.getText().toString();
+                String description = binding.lnAddProduct.edtDescp.getText().toString();
                 Product tmp = new Product("null", name, img1, img2, img3, img4, Integer.valueOf(price),
-                        binding.lnAddFood.rbFood.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
+                        binding.lnAddProduct.rbProduct.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
                 uploadProduct(tmp);
             }
         }
