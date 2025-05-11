@@ -28,7 +28,7 @@ import com.example.app.CustomMessageBox.SuccessfulToast;
 import com.example.app.Dialog.UploadDialog;
 import com.example.app.Model.Product;
 import com.example.app.R;
-import com.example.app.databinding.ActivityAddFoodBinding;
+import com.example.app.databinding.ActivityAddProductBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,7 +56,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 
 public class AddProductActivity extends AppCompatActivity {
-    private ActivityAddFoodBinding binding;
+
+    private ActivityAddProductBinding binding;
     private int position;
     private int PERMISSION_REQUEST_CODE = 10001;
     private UploadDialog uploadDialog;
@@ -78,7 +79,7 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddFoodBinding.inflate(getLayoutInflater());
+        binding = ActivityAddProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         getWindow().setStatusBarColor(Color.parseColor("#E8584D"));
@@ -90,15 +91,15 @@ public class AddProductActivity extends AppCompatActivity {
         if (intentUpdate != null && intentUpdate.hasExtra("Product updating")) {
             productUpdate = (Product) intentUpdate.getSerializableExtra("Product updating");
             checkUpdate = true;
-            binding.lnAddFood.btnAddProduct.setText("Update");
-            binding.lnAddFood.edtNameOfProduct.setText(productUpdate.getProductName());
-            binding.lnAddFood.edtAmount.setText(productUpdate.getRemainAmount() + "");
-            binding.lnAddFood.edtDescp.setText(productUpdate.getDescription());
-            binding.lnAddFood.edtPrice.setText(productUpdate.getProductPrice() + "");
+            binding.lnAddProduct.btnAddProduct.setText("Update");
+            binding.lnAddProduct.edtNameOfProduct.setText(productUpdate.getProductName());
+            binding.lnAddProduct.edtAmount.setText(productUpdate.getRemainAmount() + "");
+            binding.lnAddProduct.edtDescp.setText(productUpdate.getDescription());
+            binding.lnAddProduct.edtPrice.setText(productUpdate.getProductPrice() + "");
             if (productUpdate.getProductType().equals("Balo")) {
-                binding.lnAddFood.rbDrink.setChecked(true);
+                binding.lnAddProduct.rbDrink.setChecked(true);
             } else {
-                binding.lnAddFood.rbFood.setChecked(true);
+                binding.lnAddProduct.rbProduct.setChecked(true);
             }
             imgOld1 = productUpdate.getProductImage1();
             imgOld2 = productUpdate.getProductImage2();
@@ -156,7 +157,7 @@ public class AddProductActivity extends AppCompatActivity {
             position = 4;
             checkRuntimePermission();
         });
-        binding.lnAddFood.btnAddProduct.setOnClickListener(view -> {
+        binding.lnAddProduct.btnAddProduct.setOnClickListener(view -> {
             if (checkLoi()) {
                 uploadDialog = new UploadDialog(AddProductActivity.this);
                 uploadDialog.show();
@@ -314,10 +315,10 @@ public class AddProductActivity extends AppCompatActivity {
 
     public boolean checkLoi() {
         try {
-            String name = binding.lnAddFood.edtNameOfProduct.getText().toString();
-            double price = Double.parseDouble(binding.lnAddFood.edtPrice.getText().toString() + ".0");
-            int amount = Integer.parseInt(binding.lnAddFood.edtAmount.getText().toString());
-            String description = binding.lnAddFood.edtDescp.getText().toString();
+            String name = binding.lnAddProduct.edtNameOfProduct.getText().toString();
+            double price = Double.parseDouble(binding.lnAddProduct.edtPrice.getText().toString() + ".0");
+            int amount = Integer.parseInt(binding.lnAddProduct.edtAmount.getText().toString());
+            String description = binding.lnAddProduct.edtDescp.getText().toString();
             if (!checkUpdate) {
                 if (img1.isEmpty()) { // Chỉ yêu cầu ít nhất 1 ảnh
                     createDialog("Vui lòng chọn ít nhất 1 hình").create().show();
@@ -361,7 +362,7 @@ public class AddProductActivity extends AppCompatActivity {
         builder.setMessage(content);
         builder.setPositiveButton("OK", (dialogInterface, i) -> dialogInterface.cancel());
         builder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel());
-        builder.setIcon(R.drawable.icon_dialog_alert_addfood);
+        builder.setIcon(R.drawable.icon_dialog_alert_addproduct);
         return builder;
     }
 
@@ -499,12 +500,12 @@ public class AddProductActivity extends AppCompatActivity {
                         saveDeleteHash(position, deleteHash);
                         if (position == FOURTH_IMAGE) {
                             img4 = imageUrl;
-                            String name = binding.lnAddFood.edtNameOfProduct.getText().toString();
-                            String price = binding.lnAddFood.edtPrice.getText().toString();
-                            String amount = binding.lnAddFood.edtAmount.getText().toString();
-                            String description = binding.lnAddFood.edtDescp.getText().toString();
+                            String name = binding.lnAddProduct.edtNameOfProduct.getText().toString();
+                            String price = binding.lnAddProduct.edtPrice.getText().toString();
+                            String amount = binding.lnAddProduct.edtAmount.getText().toString();
+                            String description = binding.lnAddProduct.edtDescp.getText().toString();
                             Product tmp = new Product("null", name, img1, img2, img3, img4, Integer.valueOf(price),
-                                    binding.lnAddFood.rbFood.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
+                                    binding.lnAddProduct.rbProduct.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
                             uploadProduct(tmp);
                         } else {
                             if (position == FIRST_IMAGE) {
@@ -533,12 +534,12 @@ public class AddProductActivity extends AppCompatActivity {
                 uploadImage(position + 1);
             } else {
                 img4 = imgOld4;
-                String name = binding.lnAddFood.edtNameOfProduct.getText().toString();
-                String price = binding.lnAddFood.edtPrice.getText().toString();
-                String amount = binding.lnAddFood.edtAmount.getText().toString();
-                String description = binding.lnAddFood.edtDescp.getText().toString();
+                String name = binding.lnAddProduct.edtNameOfProduct.getText().toString();
+                String price = binding.lnAddProduct.edtPrice.getText().toString();
+                String amount = binding.lnAddProduct.edtAmount.getText().toString();
+                String description = binding.lnAddProduct.edtDescp.getText().toString();
                 Product tmp = new Product("null", name, img1, img2, img3, img4, Integer.valueOf(price),
-                        binding.lnAddFood.rbFood.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
+                        binding.lnAddProduct.rbProduct.isChecked() ? "TechAccessory" : "Balo", Integer.valueOf(amount), 0, description, 0.0, 0, userId, "");
                 uploadProduct(tmp);
             }
         }

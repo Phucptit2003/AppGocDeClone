@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class TechAccessoryHomeFrg extends Fragment {
     private FragmentDrinkHomeFrgBinding binding;
-    private ArrayList<Product> dsFood;
+    private ArrayList<Product> dsProduct;
     private TechBaloFrgAdapter adapter;
     private String userId;
 
@@ -48,7 +48,7 @@ public class TechAccessoryHomeFrg extends Fragment {
     private void initUI() {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         binding.rycDrinkHome.setLayoutManager(linearLayoutManager);
-        adapter=new TechBaloFrgAdapter(dsFood, userId,getContext());
+        adapter=new TechBaloFrgAdapter(dsProduct, userId,getContext());
         binding.rycDrinkHome.setAdapter(adapter);
         binding.rycDrinkHome.setHasFixedSize(true);
         binding.txtSeemoreDrink.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +63,11 @@ public class TechAccessoryHomeFrg extends Fragment {
 
 
     private void initData() {
-        dsFood = new ArrayList<>();
+        dsProduct = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("Products").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dsFood.clear();  // Xóa danh sách trước khi cập nhật dữ liệu mới
+                dsProduct.clear();  // Xóa danh sách trước khi cập nhật dữ liệu mới
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Product product = ds.getValue(Product.class);
 
@@ -83,7 +83,7 @@ public class TechAccessoryHomeFrg extends Fragment {
                         if (!state.equals("deleted") &&
                                 productType.equalsIgnoreCase("TechAccessory") &&
                                 !publisherId.equals(currentUserId)) {
-                            dsFood.add(product);
+                            dsProduct.add(product);
                         }
                     }
                 }

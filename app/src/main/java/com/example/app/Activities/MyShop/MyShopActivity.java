@@ -24,7 +24,7 @@ public class MyShopActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(Color.parseColor("#E8584D"));
 
         userId = getIntent().getStringExtra("userId");
-        binding.cardMyFood.setOnClickListener(new View.OnClickListener() {
+        binding.cardMyProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MyShopActivity.this, MyProductActivity.class);
